@@ -11,7 +11,7 @@ As "Computer Networks" subject needs to be performed on a specific network (prac
 Open `L24.imn` with IMUNES
 
 ### I don't have IMUNES
-Download a preconfigured IMUNES `.ova` from here.
+Download a preconfigured IMUNES `.ova` from [here](https://url.ecomaikgolf.com/L24-RC-IMUNES).
 
 ## TODO
 Default Gateways needs to be configured. The network diagram provided doesn't show GW's so i'm waiting to manually check them.
