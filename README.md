@@ -1,4 +1,4 @@
-# L24-RC-IMUNES
+# L24-RC-IMUNES (Not finished)
 L24 Laboratory network simulation using IMUNES
 
 * Git mirror: https://git.ecomaikgolf.com/L24-RC-IMUNES
