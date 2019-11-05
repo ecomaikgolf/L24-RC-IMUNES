@@ -1,0 +1,568 @@
+node n0 {
+    type router
+    snapshot vroot/vroot@clean
+    model quagga
+    network-config {
+	hostname R1
+	!
+	interface eth3
+	 ipv6 address fc00:3::1/64
+	 mac address 42:00:aa:00:00:11
+	 ip address 172.25.40.31/16
+	!
+	interface eth0
+	 ipv6 address fc00:0::1/64
+	 mac address 42:00:aa:00:00:00
+	 ip address 10.4.2.5/30
+	!
+	interface eth1
+	 ipv6 address fc00:1::1/64
+	 mac address 42:00:aa:00:00:02
+	 ip address 10.4.2.2/30
+	!
+	interface eth2
+	 ipv6 address fc00:2::1/64
+	 mac address 42:00:aa:00:00:04
+	 ip address 10.3.2.0/16
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	router rip
+	 redistribute static
+	 redistribute connected
+	 redistribute ospf
+	 network 0.0.0.0/0
+	!
+	router ripng
+	 redistribute static
+	 redistribute connected
+	 redistribute ospf6
+	 network ::/0
+	!
+	ip route 0.0.0.0/0 172.25.40.31
+	!
+    }
+    canvas c0
+    iconcoords {240.0 72.0}
+    labelcoords {240.0 100.0}
+    interface-peer {eth0 n2}
+    interface-peer {eth1 n3}
+    interface-peer {eth2 n1}
+    interface-peer {eth3 n4}
+}
+
+node n1 {
+    type router
+    snapshot vroot/vroot@clean
+    model quagga
+    network-config {
+	hostname R4
+	!
+	interface eth0
+	 ipv6 address fc00:2::2/64
+	 mac address 42:00:aa:00:00:05
+	 ip address 10.3.7.0/16
+	!
+	interface eth1
+	 ipv6 address fc00:5::1/64
+	 mac address 42:00:aa:00:00:0f
+	 ip address 172.20.41.241/28
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	router rip
+	 redistribute static
+	 redistribute connected
+	 redistribute ospf
+	 network 0.0.0.0/0
+	!
+	router ripng
+	 redistribute static
+	 redistribute connected
+	 redistribute ospf6
+	 network ::/0
+	!
+    }
+    canvas c0
+    iconcoords {576.0 72.0}
+    labelcoords {576.0 98.0}
+    interface-peer {eth0 n0}
+    interface-peer {eth1 n11}
+}
+
+node n2 {
+    type router
+    snapshot vroot/vroot@clean
+    model quagga
+    network-config {
+	hostname R2
+	!
+	interface eth1
+	 ipv6 address fc00:4::1/64
+	 mac address 42:00:aa:00:00:0b
+	 ip address 172.20.43.230/26
+	!
+	interface eth0
+	 ipv6 address fc00:0::2/64
+	 mac address 42:00:aa:00:00:01
+	 ip address 10.4.2.6/30
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	router rip
+	 redistribute static
+	 redistribute connected
+	 redistribute ospf
+	 network 0.0.0.0/0
+	!
+	router ripng
+	 redistribute static
+	 redistribute connected
+	 redistribute ospf6
+	 network ::/0
+	!
+	ip route 0.0.0.0/0 10.4.2.5
+	!
+    }
+    canvas c0
+    iconcoords {120.0 240.0}
+    labelcoords {120.0 272.0}
+    interface-peer {eth0 n0}
+    interface-peer {eth1 n6}
+}
+
+node n3 {
+    type router
+    snapshot vroot/vroot@clean
+    model quagga
+    network-config {
+	hostname R3
+	!
+	interface eth1
+	 ipv6 address fc00:4::2/64
+	 mac address 42:00:aa:00:00:0c
+	 ip address 172.20.43.231/26
+	!
+	interface eth0
+	 ipv6 address fc00:1::2/64
+	 mac address 42:00:aa:00:00:03
+	 ip address 10.4.2.1/30
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	router rip
+	 redistribute static
+	 redistribute connected
+	 redistribute ospf
+	 network 0.0.0.0/0
+	!
+	router ripng
+	 redistribute static
+	 redistribute connected
+	 redistribute ospf6
+	 network ::/0
+	!
+	ip route 0.0.0.0/0 10.4.2.2
+	!
+    }
+    canvas c0
+    iconcoords {360.0 240.0}
+    labelcoords {360.0 276.0}
+    interface-peer {eth0 n0}
+    interface-peer {eth1 n6}
+}
+
+node n6 {
+    type lanswitch
+    network-config {
+	hostname Switch
+	!
+    }
+    canvas c0
+    iconcoords {240.0 360.0}
+    labelcoords {240.0 386.0}
+    interface-peer {e0 n7}
+    interface-peer {e1 n8}
+    interface-peer {e2 n9}
+    interface-peer {e3 n10}
+    interface-peer {e4 n2}
+    interface-peer {e5 n3}
+    interface-peer {e6 n5}
+}
+
+node n7 {
+    type pc
+    snapshot vroot/vroot@clean
+    network-config {
+	hostname ALU-1
+	!
+	interface eth0
+	 ipv6 address fc00:4::20/64
+	 mac address 42:00:aa:00:00:07
+	 ip address 172.20.43.198/26
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	!
+	!
+	ipv6 route ::/0 fc00:4::1
+	!
+	ip route 0.0.0.0/0 172.20.43.230
+	!
+    }
+    canvas c0
+    iconcoords {48.0 552.0}
+    labelcoords {48.0 592.0}
+    interface-peer {eth0 n6}
+}
+
+node n8 {
+    type pc
+    snapshot vroot/vroot@clean
+    network-config {
+	hostname ALU-2
+	!
+	interface eth0
+	 ipv6 address fc00:4::21/64
+	 mac address 42:00:aa:00:00:08
+	 ip address 172.20.43.199/26
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	ipv6 route ::/0 fc00:4::1
+	!
+	ip route 0.0.0.0/0 172.20.43.230
+	!
+    }
+    canvas c0
+    iconcoords {240.0 552.0}
+    labelcoords {240.0 592.0}
+    interface-peer {eth0 n6}
+}
+
+node n9 {
+    type pc
+    snapshot vroot/vroot@clean
+    network-config {
+	hostname ALU-3
+	!
+	interface eth0
+	 ipv6 address fc00:4::22/64
+	 mac address 42:00:aa:00:00:09
+	 ip address 172.20.43.200/26
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	ipv6 route ::/0 fc00:4::1
+	!
+	ip route 0.0.0.0/0 172.20.43.230
+	!
+    }
+    canvas c0
+    iconcoords {432.0 552.0}
+    labelcoords {432.0 592.0}
+    interface-peer {eth0 n6}
+}
+
+node n10 {
+    type pc
+    snapshot vroot/vroot@clean
+    network-config {
+	hostname ALU-N
+	!
+	interface eth0
+	 ipv6 address fc00:4::23/64
+	 mac address 42:00:aa:00:00:0a
+	 ip address 172.20.43.227/26
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	ipv6 route ::/0 fc00:4::1
+	!
+	ip route 0.0.0.0/0 172.20.43.230
+	!
+    }
+    canvas c0
+    iconcoords {624.0 552.0}
+    labelcoords {624.0 600.0}
+    interface-peer {eth0 n6}
+}
+
+node n5 {
+    type pc
+    snapshot vroot/vroot@clean
+    network-config {
+	hostname Linux 2
+	!
+	interface eth1
+	 ipv6 address fc00:5::20/64
+	 mac address 42:00:aa:00:00:0e
+	 ip address 172.20.41.242/28
+	!
+	interface eth0
+	 ipv6 address fc00:4::24/64
+	 mac address 42:00:aa:00:00:0d
+	 ip address 172.20.43.232/26
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	ipv6 route ::/0 fc00:5::1
+	!
+	ip route 0.0.0.0/0 172.20.41.241
+	!
+    }
+    canvas c0
+    iconcoords {576.0 360.0}
+    labelcoords {576.0 396.0}
+    interface-peer {eth0 n6}
+    interface-peer {eth1 n11}
+}
+
+node n11 {
+    type lanswitch
+    network-config {
+	hostname Switch
+	!
+    }
+    canvas c0
+    iconcoords {576.0 216.0}
+    labelcoords {576.0 242.0}
+    interface-peer {e0 n5}
+    interface-peer {e1 n1}
+    interface-peer {e2 n12}
+}
+
+node n12 {
+    type pc
+    snapshot vroot/vroot@clean
+    network-config {
+	hostname Linux 3
+	!
+	interface eth0
+	 ipv6 address fc00:5::21/64
+	 mac address 42:00:aa:00:00:10
+	 ip address 172.20.41.243/28
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	ipv6 route ::/0 fc00:5::1
+	!
+	ip route 0.0.0.0/0 172.20.41.241
+	!
+    }
+    canvas c0
+    iconcoords {840.0 216.0}
+    labelcoords {840.0 256.0}
+    interface-peer {eth0 n11}
+}
+
+node n4 {
+    type rj45
+    network-config {
+	hostname em0
+	!
+    }
+    canvas c0
+    iconcoords {24.0 72.0}
+    labelcoords {24.0 108.0}
+    interface-peer {0 n0}
+}
+
+link l0 {
+    nodes {n0 n2}
+    bandwidth 1540000
+}
+
+link l1 {
+    nodes {n0 n3}
+    bandwidth 1540000
+}
+
+link l2 {
+    nodes {n0 n1}
+    bandwidth 128000
+}
+
+link l4 {
+    nodes {n7 n6}
+    bandwidth 100000000
+}
+
+link l5 {
+    nodes {n6 n8}
+    bandwidth 100000000
+}
+
+link l6 {
+    nodes {n6 n9}
+    bandwidth 100000000
+}
+
+link l7 {
+    nodes {n6 n10}
+    bandwidth 100000000
+}
+
+link l8 {
+    nodes {n6 n2}
+    bandwidth 0
+}
+
+link l9 {
+    nodes {n6 n3}
+    bandwidth 0
+}
+
+link l10 {
+    nodes {n6 n5}
+    bandwidth 0
+}
+
+link l11 {
+    nodes {n5 n11}
+    bandwidth 100000000
+}
+
+link l12 {
+    nodes {n11 n1}
+    bandwidth 100000000
+}
+
+link l13 {
+    nodes {n11 n12}
+    bandwidth 100000000
+}
+
+link l3 {
+    bandwidth 100000000
+    nodes {n0 n4}
+}
+
+annotation a0 {
+    type text
+    iconcoords {504.0 552.0}
+    label {...}
+    labelcolor black
+    font {-family {Bitstream Vera Sans} -size 26 -weight normal -slant roman -underline 0 -overstrike 0}
+    canvas c0
+}
+
+annotation a1 {
+    type {text}
+    iconcoords {624.0 24.0}
+    label {Laboratorio L24}
+    labelcolor black
+    font {-family {Bitstream Vera Sans} -size 28 -weight normal -slant roman -underline 0 -overstrike 0}
+    canvas c0
+}
+
+annotation a2 {
+    type {text}
+    iconcoords {744.0 576.0}
+    label {Ernesto Martinez Garcia}
+    labelcolor black
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a3 {
+    type {text}
+    iconcoords {768.0 600.0}
+    label {ecomaikgolf.com}
+    labelcolor black
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a4 {
+    type {text}
+    iconcoords {384.0 48.0}
+    label {10.3.0.0/16}
+    labelcolor #ff00ff
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a5 {
+    type {text}
+    iconcoords {456.0 192.0}
+    label {172.20.41.240/28}
+    labelcolor #ff00ff
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a6 {
+    type {text}
+    iconcoords {336.0 168.0}
+    label {10.4.2.0/30}
+    labelcolor #ff00ff
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a7 {
+    type {text}
+    iconcoords {72.0 168.0}
+    label {10.4.2.4/30}
+    labelcolor #ff00ff
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a8 {
+    type {text}
+    iconcoords {291.0 603.0}
+    label {172.20.43.192/26}
+    labelcolor #ff00ff
+    font {TkTextFont}
+    canvas c0
+}
+
+canvas c0 {
+    name {Canvas0}
+}
+
+option show {
+    interface_names no
+    ip_addresses yes
+    ipv6_addresses no
+    node_labels yes
+    link_labels yes
+    background_images no
+    annotations yes
+    grid yes
+    iconSize normal
+    zoom 1.0
+}
+
