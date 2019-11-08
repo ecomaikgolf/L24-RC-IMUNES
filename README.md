@@ -7,7 +7,7 @@ L24 Laboratory network simulation using IMUNES
 
 ## Installation
 ### I don't have IMUNES <--
-Download a preconfigured IMUNES `.ova` from [here](https://url.ecomaikgolf.com/L24-RC-IMUNES) and open it with VirtualBox.
+Download a preconfigured IMUNES (770M) `.ova` from [here](https://url.ecomaikgolf.com/L24-RC-IMUNES) and open it with VirtualBox.
 
 **GUI**: Open VirtualBox > Press `Ctrl+I` > Search for `L24.ova`   
 **CLI**: `vboxmanage import L24.ova`   
