@@ -23,7 +23,7 @@ Clone the repo and open `L24.imn` with IMUNES
 ![](1.png)
 ### Open a terminal in any machine/router
 ![](2.png)
-### 0% Noise
+### ~0% Noise
 ![](3.png)
 ### Wireshark in every ethernet segment
 ![](4.png)
