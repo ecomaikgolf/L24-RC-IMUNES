@@ -31,7 +31,8 @@ Clone the repo and open `L24.imn` with IMUNES
 ![](5.png)
 
 ## Notes
-* Network performance is not the same (but speed max. is)
+* Network performance is not the same (but max. speed is)
 * Linux 2 does not have a remote command service
 * VM does not have internet access (disabled)
 * Linux/Windows commands differ! Revise the Windows syntax before the exam.
+* Rely on IPv4 only
