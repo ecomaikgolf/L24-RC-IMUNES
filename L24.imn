@@ -7,28 +7,33 @@ node n0 {
 	!
 	interface eth3
 	 ipv6 address fc00:3::1/64
-	 mac address 42:00:aa:00:00:11
-	 ip address 172.25.40.31/16
-	!
-	interface eth0
-	 ipv6 address fc00:0::1/64
-	 mac address 42:00:aa:00:00:00
-	 ip address 10.4.2.5/30
-	!
-	interface eth1
-	 ipv6 address fc00:1::1/64
-	 mac address 42:00:aa:00:00:02
-	 ip address 10.4.2.2/30
+	 mac address 42:00:aa:00:00:06
+	 ip address 172.25.40.31/24
 	!
 	interface eth2
 	 ipv6 address fc00:2::1/64
 	 mac address 42:00:aa:00:00:04
 	 ip address 10.3.2.0/16
+	 mtu 600
+	!
+	interface eth1
+	 ipv6 address fc00:1::1/64
+	 mac address 42:00:aa:00:00:02
+	 ip address 10.4.2.2/30
+	 mtu 500
+	!
+	interface eth0
+	 ipv6 address fc00:0::1/64
+	 mac address 42:00:aa:00:00:00
+	 ip address 10.4.2.5/30
+	 mtu 1500
 	!
 	interface lo0
 	 type lo
 	 ip address 127.0.0.1/24
 	 ipv6 address ::1/128
+	!
+	ip route 0.0.0.0/0 172.25.40.31
 	!
 	router rip
 	 redistribute static
@@ -41,8 +46,6 @@ node n0 {
 	 redistribute connected
 	 redistribute ospf6
 	 network ::/0
-	!
-	ip route 0.0.0.0/0 172.25.40.31
 	!
     }
     canvas c0
@@ -65,6 +68,7 @@ node n1 {
 	 ipv6 address fc00:2::2/64
 	 mac address 42:00:aa:00:00:05
 	 ip address 10.3.7.0/16
+	 mtu 600
 	!
 	interface eth1
 	 ipv6 address fc00:5::1/64
@@ -75,6 +79,8 @@ node n1 {
 	 type lo
 	 ip address 127.0.0.1/24
 	 ipv6 address ::1/128
+	!
+	ip route 0.0.0.0/0 10.3.2.0
 	!
 	router rip
 	 redistribute static
@@ -103,20 +109,23 @@ node n2 {
     network-config {
 	hostname R2
 	!
+	interface eth0
+	 ipv6 address fc00:0::2/64
+	 mac address 42:00:aa:00:00:01
+	 ip address 10.4.2.6/30
+	 mtu 1500
+	!
 	interface eth1
 	 ipv6 address fc00:4::1/64
 	 mac address 42:00:aa:00:00:0b
 	 ip address 172.20.43.230/26
 	!
-	interface eth0
-	 ipv6 address fc00:0::2/64
-	 mac address 42:00:aa:00:00:01
-	 ip address 10.4.2.6/30
-	!
 	interface lo0
 	 type lo
 	 ip address 127.0.0.1/24
 	 ipv6 address ::1/128
+	!
+	ip route 0.0.0.0/0 10.4.2.5
 	!
 	router rip
 	 redistribute static
@@ -129,8 +138,6 @@ node n2 {
 	 redistribute connected
 	 redistribute ospf6
 	 network ::/0
-	!
-	ip route 0.0.0.0/0 10.4.2.5
 	!
     }
     canvas c0
@@ -147,20 +154,23 @@ node n3 {
     network-config {
 	hostname R3
 	!
+	interface eth0
+	 ipv6 address fc00:1::2/64
+	 mac address 42:00:aa:00:00:03
+	 ip address 10.4.2.1/30
+	 mtu 500
+	!
 	interface eth1
 	 ipv6 address fc00:4::2/64
 	 mac address 42:00:aa:00:00:0c
 	 ip address 172.20.43.231/26
 	!
-	interface eth0
-	 ipv6 address fc00:1::2/64
-	 mac address 42:00:aa:00:00:03
-	 ip address 10.4.2.1/30
-	!
 	interface lo0
 	 type lo
 	 ip address 127.0.0.1/24
 	 ipv6 address ::1/128
+	!
+	ip route 0.0.0.0/0 10.4.2.2
 	!
 	router rip
 	 redistribute static
@@ -173,8 +183,6 @@ node n3 {
 	 redistribute connected
 	 redistribute ospf6
 	 network ::/0
-	!
-	ip route 0.0.0.0/0 10.4.2.2
 	!
     }
     canvas c0
@@ -335,7 +343,7 @@ node n5 {
 	!
 	ipv6 route ::/0 fc00:5::1
 	!
-	ip route 0.0.0.0/0 172.20.41.241
+	ip route 0.0.0.0/0 172.20.41.230
 	!
     }
     canvas c0
@@ -387,15 +395,28 @@ node n12 {
 }
 
 node n4 {
-    type rj45
+    type host
+    snapshot vroot/vroot@clean
     network-config {
-	hostname em0
+	hostname ROUTER-EPS
+	!
+	interface eth0
+	 ipv6 address fc00:3::10/64
+	 mac address 42:00:aa:00:00:11
+	 ip address 172.25.40.32/24
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/24
+	 ipv6 address ::1/128
+	!
+	!
 	!
     }
     canvas c0
-    iconcoords {24.0 72.0}
-    labelcoords {24.0 108.0}
-    interface-peer {0 n0}
+    iconcoords {48.0 72.0}
+    labelcoords {60.0 117.0}
+    interface-peer {eth0 n0}
 }
 
 link l0 {
@@ -464,8 +485,8 @@ link l13 {
 }
 
 link l3 {
-    bandwidth 100000000
-    nodes {n0 n4}
+    nodes {n4 n0}
+    bandwidth 0
 }
 
 annotation a0 {
@@ -478,7 +499,7 @@ annotation a0 {
 }
 
 annotation a1 {
-    type {text}
+    type text
     iconcoords {624.0 24.0}
     label {Laboratorio L24}
     labelcolor black
@@ -487,8 +508,8 @@ annotation a1 {
 }
 
 annotation a2 {
-    type {text}
-    iconcoords {744.0 576.0}
+    type text
+    iconcoords {744.0 552.0}
     label {Ernesto Martinez Garcia}
     labelcolor black
     font {TkTextFont}
@@ -496,7 +517,7 @@ annotation a2 {
 }
 
 annotation a3 {
-    type {text}
+    type text
     iconcoords {768.0 600.0}
     label {ecomaikgolf.com}
     labelcolor black
@@ -505,8 +526,8 @@ annotation a3 {
 }
 
 annotation a4 {
-    type {text}
-    iconcoords {384.0 48.0}
+    type text
+    iconcoords {384.0 24.0}
     label {10.3.0.0/16}
     labelcolor #ff00ff
     font {TkTextFont}
@@ -514,7 +535,7 @@ annotation a4 {
 }
 
 annotation a5 {
-    type {text}
+    type text
     iconcoords {456.0 192.0}
     label {172.20.41.240/28}
     labelcolor #ff00ff
@@ -523,7 +544,7 @@ annotation a5 {
 }
 
 annotation a6 {
-    type {text}
+    type text
     iconcoords {336.0 168.0}
     label {10.4.2.0/30}
     labelcolor #ff00ff
@@ -532,7 +553,7 @@ annotation a6 {
 }
 
 annotation a7 {
-    type {text}
+    type text
     iconcoords {72.0 168.0}
     label {10.4.2.4/30}
     labelcolor #ff00ff
@@ -541,10 +562,73 @@ annotation a7 {
 }
 
 annotation a8 {
-    type {text}
-    iconcoords {291.0 603.0}
+    type text
+    iconcoords {288.0 576.0}
     label {172.20.43.192/26}
     labelcolor #ff00ff
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a9 {
+    type text
+    iconcoords {24.0 24.0}
+    label {Internet}
+    labelcolor #ff00ff
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a10 {
+    type {text}
+    iconcoords {72.0 192.0}
+    label {MTU=1500}
+    labelcolor #00ff00
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a11 {
+    type {text}
+    iconcoords {384.0 48.0}
+    label {MTU=600}
+    labelcolor #00ff00
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a12 {
+    type {text}
+    iconcoords {360.0 192.0}
+    label {MTU=500}
+    labelcolor #00ff00
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a13 {
+    type {text}
+    iconcoords {480.0 216.0}
+    label {MTU=1500}
+    labelcolor #00ff00
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a14 {
+    type {text}
+    iconcoords {312.0 600.0}
+    label {MTU=1500}
+    labelcolor #00ff00
+    font {TkTextFont}
+    canvas c0
+}
+
+annotation a15 {
+    type {text}
+    iconcoords {744.0 576.0}
+    label {twitter.com/ecomaikgolf}
+    labelcolor black
     font {TkTextFont}
     canvas c0
 }
