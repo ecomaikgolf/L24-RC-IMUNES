@@ -36,4 +36,4 @@ Clone the repo and open `L24.imn` with IMUNES
 * VM does not have internet access (disabled)
 * Linux/Windows commands differ! Revise the Windows syntax before the exam.
 * Rely on IPv4 only
-* To test TCP/IP use `nc -l PORT` on one machine (server) and `nc IP PORT (-O maxSize)` in another
+* To test TCP/IP use `nc -l PORT` in one machine (server) and `nc IP PORT (-O maxSize)` in another
