@@ -37,3 +37,5 @@ Clone the repo and open `L24.imn` with IMUNES
 * Linux/Windows commands differ! Revise the Windows syntax before the exam.
 * Rely on IPv4 only
 * To test TCP/IP use `nc -l PORT` in one machine (server) and `nc IP PORT (-O maxSize)` in another
+* To test UDP use `echo "test" > /dev/udp/IP/PORT`
+* Recommended default filter: `not ripng and not rip`
