@@ -1,8 +1,7 @@
 # L24-RC-IMUNES   
 L24 Laboratory network simulation using IMUNES
 
-* Git mirror: https://git.ecomaikgolf.com/L24-RC-IMUNES
-* Preconfigured OVA: https://url.ecomaikgolf.com/L24-RC-IMUNES
+* Preconfigured OVA: https://drive.google.com/file/d/1iRuojJkmP9yiiZxrS3oU5xF3OupMAqJw/view?usp=sharing
 * Credits to: http://imunes.net/
 
 ## Installation
